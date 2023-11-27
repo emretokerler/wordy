@@ -1,4 +1,5 @@
 using UnityEngine;
+using Wordy.Services.Scenes;
 
 namespace Wordy.Services
 {
@@ -8,7 +9,7 @@ namespace Wordy.Services
         public static void Initialize()
         {
             ServiceLocator.Initialize();
-            Debug.Log("service locator init");
+            ServiceLocator.Current.Register(new SceneService());
         }
     }
 }
