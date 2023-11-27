@@ -1,1 +1,4 @@
-﻿public abstract class GameEvent { }
+﻿namespace Wordy.Events
+{
+    public abstract class GameEvent { }
+}

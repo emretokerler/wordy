@@ -1,7 +1,10 @@
-public static class EventExtensions
+namespace Wordy.Events
 {
-    public static void Trigger<T>(this T customEvent) where T : GameEvent
+    public static class EventExtensions
     {
-        GameEvents.Trigger(customEvent);
+        public static void Trigger<T>(this T customEvent) where T : GameEvent
+        {
+            GameEvents.Trigger(customEvent);
+        }
     }
 }
