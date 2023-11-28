@@ -2,7 +2,7 @@ namespace Wordy.Grids
 {
     public class Grid
     {
-        protected Cell[,] cells;
+        public Cell[,] Cells;
         public int Width { get; private set; }
         public int Height { get; private set; }
 
@@ -10,19 +10,7 @@ namespace Wordy.Grids
         {
             Width = width;
             Height = height;
-            cells = new Cell[width, height];
-            InitializeCells();
-        }
-
-        private void InitializeCells()
-        {
-            for (int x = 0; x < Width; x++)
-            {
-                for (int y = 0; y < Height; y++)
-                {
-                    cells[x, y] = new Cell(x, y , ' ');
-                }
-            }
+            Cells = new Cell[width, height];
         }
 
         public Cell GetCell(int x, int y)
@@ -31,8 +19,7 @@ namespace Wordy.Grids
             {
                 return null;
             }
-            return cells[x, y];
+            return Cells[x, y];
         }
-
     }
 }
