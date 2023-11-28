@@ -1,12 +1,14 @@
 using Wordy.Services.Scenes.Data;
 using UnityEngine;
+using Resources = Wordy.Resources;
+using Wordy.Resources;
 
 namespace Wordy.Services.Scenes
 {
     public abstract class BaseScene : MonoBehaviour, IScene
     {
         public SceneData SceneData;
-        
+
         protected SceneService sceneService => _sceneService ??= ServiceLocator.Current.Get<SceneService>(); private SceneService _sceneService;
         protected GameObject sceneContent;
 
@@ -25,6 +27,10 @@ namespace Wordy.Services.Scenes
 
             if (SceneData.SceneContent)
             {
+                // AddressableHelper.Load<GameObject>("", delegate
+                // {
+
+                // });
                 sceneContent = Instantiate(SceneData.SceneContent);
             }
             OnSceneLoaded();
