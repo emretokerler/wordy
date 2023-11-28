@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
 namespace Wordy.Grids
 {
     public class GridHelper : SingletonMonobehaviour<GridHelper>
