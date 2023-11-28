@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ec67b6866daaa42fc80b901b01943796
+  m_SerializeEntries:
+  - m_GUID: dc35b2dcdbbd049a687e518daf59c2be
+    m_Address: Assets/Addressables/Data/Scenes/MainScene.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7672b8ae789f14dc6a2b940bb386652d
+    m_Address: Assets/Addressables/Data/Scenes/CommonScene.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9298ef51d7b944062b6a967e76bfd5c2
+    m_Address: Assets/Addressables/Data/GridViews/GridViewData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5f91f752b3f249cc996b3914771d44a
+    m_Address: Assets/Addressables/Prefabs/Grid/Cell.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0bd3a206989b454b9b0ee8fe8be6779
+    m_Address: Assets/Addressables/Prefabs/Grid/GridView.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c9a9cb8e94ed402899e08d0835323b7
+    m_Address: Assets/Addressables/Prefabs/SceneObjects/CommonSceneObjects.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 561093663063f42e2a90f63fbd88df75
+    m_Address: Assets/Addressables/Prefabs/SceneObjects/MainSceneObjects.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8a08292e0830e4369b4edebbd9c12e75, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b6441f1b5dc5843809605518f20a9947, type: 2}
+    - {fileID: 11400000, guid: deca98d0c9c9f4ed485e29f03da83353, type: 2}
