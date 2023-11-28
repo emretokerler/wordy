@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb37223fee9104fe087e5a16ee399bb7, type: 3}
   m_Name: GridViewData
   m_EditorClassIdentifier: 
-  CellPrefab: {fileID: 2400522769349525638, guid: d5f91f752b3f249cc996b3914771d44a,
+  CellPrefab: {fileID: 8782387628002183809, guid: d5f91f752b3f249cc996b3914771d44a,
     type: 3}
   DistanceBetweenCells: 1

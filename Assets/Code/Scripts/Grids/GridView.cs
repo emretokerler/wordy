@@ -22,8 +22,9 @@ namespace Wordy.Grids
                 {
                     var cellData = _grid.GetCell(x, y);
                     var cell = Instantiate(GridViewData.CellPrefab, transform);
-                    cell.name = GetCellName(cellData);
+                    cell.gameObject.name = GetCellName(cellData);
                     cell.transform.position = GetCellPosition(cellData);
+                    cell.Init(cellData);
                 }
             }
         }
