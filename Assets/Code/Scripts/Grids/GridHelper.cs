@@ -1,21 +1,22 @@
+using UnityEngine;
+using Wordy.Resources;
+
 namespace Wordy.Grids
 {
     public class GridHelper : SingletonMonobehaviour<GridHelper>
     {
-        public void CreateTestCell()
+        public GridView CreateDefaultGridView()
         {
-
-        }
-
-        public GridView CreateGridView()
-        {
-            // var gridViewPrefab = 
+            AddressableHelper.Instantiate<GridView>(AddressablePaths.DEFAULT_GRIDVIEW_PREFAB, transform, Vector3.zero, Quaternion.identity, (gridView) =>
+            {
+                gridView?.Initialize(GetEmptyGrid(3, 3));
+            });
             return null;
         }
 
-        public Grid GetEmptyGrid()
+        public Grid GetEmptyGrid(int width, int height)
         {
-            return null;
+            return new Grid(width, height);
         }
 
         private void FillWithBlankCells(Grid grid)
