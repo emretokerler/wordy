@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Wordy.Resources;
 
@@ -5,13 +6,12 @@ namespace Wordy.Grids
 {
     public class GridHelper : SingletonMonobehaviour<GridHelper>
     {
-        public GridView CreateDefaultGridView()
+        public void CreateDefaultGridView()
         {
             AddressableHelper.Instantiate<GridView>(AddressablePaths.DEFAULT_GRIDVIEW_PREFAB, transform, Vector3.zero, Quaternion.identity, (gridView) =>
             {
                 gridView?.Initialize(GetEmptyGrid(3, 3));
             });
-            return null;
         }
 
         public Grid GetEmptyGrid(int width, int height)
@@ -28,6 +28,11 @@ namespace Wordy.Grids
                     grid.Cells[x, y] = new Cell(x, y, ' ');
                 }
             }
+        }
+
+        public static IEnumerable<Cell> GetGridTraverser(Grid grid, TraverseMethod method)
+        {
+            return new GridTraverser(grid, method);
         }
     }
 }
