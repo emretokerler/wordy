@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Wordy.Grids;
 
-namespace Wordy.Words.Data
+namespace Wordy.Words
 {
     public class Word
     {

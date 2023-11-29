@@ -13,20 +13,14 @@ namespace Wordy.Words
     {
         private WordsHelperData config;
         public List<Word> LoadedWords;
-
-        private void Start()
+        public void Initialize() => AddressableHelper.Load<WordsHelperData>(AddressablePaths.DEFAULT_WORDSHELPER_DATA, wordsHelperData => Initialize(wordsHelperData));
+        public void Initialize(WordsHelperData wordsHelperData)
         {
-            AddressableHelper.Load<WordsHelperData>(AddressablePaths.DEFAULT_WORDSHELPER_DATA, wordsHelperData => Initialize(wordsHelperData));
-        }
-
-        void Initialize(WordsHelperData wordsHelperData)
-        {
-
             config = wordsHelperData;
-            InitializeWords();
+            LoadWords();
         }
 
-        void InitializeWords()
+        void LoadWords()
         {
             if (config.WordLoadMethod == WordLoadMethod.Local)
             {

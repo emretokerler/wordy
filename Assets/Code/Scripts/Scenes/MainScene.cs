@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using Wordy.Grids;
+using Wordy.Words;
 using Grid = Wordy.Grids.Grid;
 
 namespace Wordy.Services.Scenes
@@ -10,7 +11,15 @@ namespace Wordy.Services.Scenes
         public override void OnSceneLoaded()
         {
             base.OnSceneLoaded();
+            WordsHelper.Instance.Initialize();
             CreateTestGrid();
+
+            StartDefaultLevel();
+        }
+
+        void StartDefaultLevel()
+        {
+            
         }
 
         private void CreateTestGrid()
@@ -27,6 +36,5 @@ namespace Wordy.Services.Scenes
             // GridHelper.GetGridTraverser(grid, TraverseMethod.DiagonalRight).ToList().ForEach(x => Debug.Log($"x:{x.X} y:{x.Y}"));
         }
 
-        
     }
 }
