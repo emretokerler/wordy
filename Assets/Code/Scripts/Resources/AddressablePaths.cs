@@ -15,6 +15,9 @@ namespace Wordy.Resources
 
         public static readonly string COMMON_SCENE_PREFAB = $"{SCENES_ROOT}/CommonSceneObjects";
         public static readonly string MAIN_SCENE_PREFAB = $"{SCENES_ROOT}/MainSceneObjects";
+
+        public static readonly string DEFAULT_GRIDVIEW_DATA = $"{DATA_ROOT}/GridViews/GridViewData.asset";
+
         
     }
 }

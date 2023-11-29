@@ -1,17 +1,23 @@
 using UnityEngine;
+using Wordy.Resources;
 using Wordy.Services.Grids.Data;
 
 namespace Wordy.Grids
 {
     public class GridView : MonoBehaviour
     {
-        public GridViewData GridViewData;
+        [HideInInspector] public GridViewData GridViewData;
         private Grid _grid;
 
         public void Initialize(Grid grid)
         {
             _grid = grid;
-            CreateCells();
+
+            AddressableHelper.Load<GridViewData>(AddressablePaths.DEFAULT_GRIDVIEW_DATA, (gridViewData) =>
+            {
+                GridViewData = gridViewData;
+                CreateCells();
+            });
         }
 
         private void CreateCells()
