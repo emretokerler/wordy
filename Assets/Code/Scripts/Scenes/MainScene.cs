@@ -12,8 +12,7 @@ namespace Wordy.Services.Scenes
 
         private void CreateTestGrid()
         {
-            var gridView = FindObjectOfType<GridView>();
-            gridView.Initialize(new Grid(3,5));
+            GridHelper.Instance.CreateDefaultGridView();
         }
     }
 }

@@ -1,7 +1,5 @@
 using Wordy.Services.Scenes.Data;
 using UnityEngine;
-using Resources = Wordy.Resources;
-using Wordy.Resources;
 
 namespace Wordy.Services.Scenes
 {
@@ -23,15 +21,6 @@ namespace Wordy.Services.Scenes
             {
                 Debug.LogError("No scene data found!");
                 return;
-            }
-
-            if (SceneData.SceneContent)
-            {
-                // AddressableHelper.Load<GameObject>("", delegate
-                // {
-
-                // });
-                sceneContent = Instantiate(SceneData.SceneContent);
             }
             OnSceneLoaded();
         }
