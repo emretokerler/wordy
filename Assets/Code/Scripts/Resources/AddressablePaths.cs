@@ -18,6 +18,9 @@ namespace Wordy.Resources
 
         public static readonly string DEFAULT_GRIDVIEW_DATA = $"{DATA_ROOT}/GridViews/GridViewData.asset";
 
+        public static readonly string DEFAULT_WORDSHELPER_DATA = $"{DATA_ROOT}/Words/WordsHelperData.asset";
+
+
         
     }
 }
