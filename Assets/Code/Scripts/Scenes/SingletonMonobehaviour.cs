@@ -12,7 +12,7 @@ public class SingletonMonobehaviour<T> : MonoBehaviour where T : MonoBehaviour
 	private static readonly object _instanceLock = new object();
 	private static bool _quitting = false;
 
-	public static T instance {
+	public static T Instance {
 		get {
 			lock(_instanceLock){
 				if(_instance==null && !_quitting){
