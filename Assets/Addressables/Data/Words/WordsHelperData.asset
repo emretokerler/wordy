@@ -15,4 +15,4 @@ MonoBehaviour:
   WordLoadMethod: 0
   BaseURL: 
   URL: 
-  FilePath: 
+  FileName: Words.json

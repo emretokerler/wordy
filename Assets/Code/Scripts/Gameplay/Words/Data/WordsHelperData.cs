@@ -1,5 +1,6 @@
 using UnityEngine;
 using Wordy.Grids;
+using Wordy.Resources;
 
 namespace Wordy.Words.Data
 {
@@ -7,11 +8,23 @@ namespace Wordy.Words.Data
     public class WordsHelperData : ScriptableObject
     {
         public WordLoadMethod WordLoadMethod = WordLoadMethod.Local;
+        public LocalLoadMethod LocalLoadMethod = LocalLoadMethod.Addressables;
         public string BaseURL = "";
         public string URL = "";
-        public string FilePath = "words.json";
-        public string FullFileSavePath => $"{Application.persistentDataPath}/{FilePath}";
-        public string FullURL => $"{BaseURL}/{FilePath}";
+        public string FileName = "Words.json";
+        public string FullFileSavePath => GetFullFileSavePath();
+        public string FullURL => $"{BaseURL}/{FileName}";
+
+        private string GetFullFileSavePath()
+        {
+            switch (LocalLoadMethod)
+            {
+                case LocalLoadMethod.Addressables: return $"{AddressablePaths.WORDS_DATA_ROOT}/{FileName}";
+                case LocalLoadMethod.PersistentDataPath: return $"{Application.persistentDataPath}/{FileName}";
+                case LocalLoadMethod.StreamingAssets: return $"{Application.streamingAssetsPath}/{FileName}";
+                default: return string.Empty;
+            }
+        }
     }
 
     public enum WordLoadMethod
@@ -22,8 +35,10 @@ namespace Wordy.Words.Data
 
     public enum LocalLoadMethod
     {
-        Local,
-        Remote
+        Addressables,
+        PersistentDataPath,
+        StreamingAssets,
+        Resources
     }
 
 

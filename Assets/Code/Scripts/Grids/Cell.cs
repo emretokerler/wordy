@@ -1,5 +1,6 @@
 namespace Wordy.Grids
 {
+    [System.Serializable]
     public class Cell
     {
         public int X { get; private set; }

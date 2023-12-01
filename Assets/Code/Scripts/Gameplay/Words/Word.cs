@@ -5,6 +5,7 @@ using Wordy.Grids;
 
 namespace Wordy.Words
 {
+    [System.Serializable]
     public class Word
     {
         public string Content;

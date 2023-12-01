@@ -52,6 +52,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4841dbf5c6e8145f384422f6df6a928b
+    m_Address: Assets/Addressables/Data/Words/WordsHelperData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11f9fc482131f4395833400ed9c20afd
+    m_Address: Assets/Addressables/Data/Words/words.json
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8a08292e0830e4369b4edebbd9c12e75, type: 2}
   m_SchemaSet:
