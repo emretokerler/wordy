@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Wordy.Resources;
@@ -6,12 +7,9 @@ namespace Wordy.Grids
 {
     public class GridHelper : SingletonMonobehaviour<GridHelper>
     {
-        public void CreateDefaultGridView()
+        public void CreateDefaultGridView(Transform parent, Action<GridView> OnComplete)
         {
-            AddressableHelper.Instantiate<GridView>(AddressablePaths.DEFAULT_GRIDVIEW_PREFAB, transform, Vector3.zero, Quaternion.identity, (gridView) =>
-            {
-                gridView?.Initialize(GetEmptyGrid(3, 3));
-            });
+            AddressableHelper.Instantiate<GridView>(AddressablePaths.DEFAULT_GRIDVIEW_PREFAB, parent ?? transform, Vector3.zero, Quaternion.identity, OnComplete);
         }
 
         public Grid GetEmptyGrid(int width, int height)

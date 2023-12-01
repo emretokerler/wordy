@@ -24,7 +24,7 @@ namespace Wordy.Services.Scenes
 
         private void CreateTestGrid()
         {
-            GridHelper.Instance.CreateDefaultGridView();
+            // GridHelper.Instance.CreateDefaultGridView();
             // var grid = new Grid(3, 3);
             // Debug.Log("Horizontal");
             // GridHelper.GetGridTraverser(grid, TraverseMethod.Horizontal).ToList().ForEach(x => Debug.Log($"x:{x.X} y:{x.Y}"));

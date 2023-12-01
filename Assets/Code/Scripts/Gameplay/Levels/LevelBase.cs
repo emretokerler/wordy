@@ -8,17 +8,16 @@ namespace Wordy.Levels
     public abstract class LevelBase : MonoBehaviour, ILevel
     {
         public LevelData LevelConfig;
-        public bool IsValid;
+        public bool IsValid => Validate();
         public abstract void InitializeLevel();
         public abstract void StartLevel();
 
-        public void SetLevelConfig(LevelData levelConfig)
+        public virtual void SetLevelConfig(LevelData levelConfig)
         {
             LevelConfig = levelConfig;
-            IsValid = Validate();
         }
 
-        public bool Validate()
+        public virtual bool Validate()
         {
             if (LevelConfig.Words == null) return false;
             if (LevelConfig.Words.Sum(w => w.Content.Length) < LevelConfig.GridWidth * LevelConfig.GridHeight) return false;
