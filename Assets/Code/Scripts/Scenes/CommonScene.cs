@@ -6,6 +6,7 @@ namespace Wordy.Services.Scenes
     {
         public override void OnSceneLoaded()
         {
+            base.OnSceneLoaded();
             sceneService.LoadScene(Constants.MAIN_SCENE_NAME);
         }
     }

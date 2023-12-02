@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Wordy.Services.Scenes
@@ -8,6 +7,7 @@ namespace Wordy.Services.Scenes
         public override void Initialize()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
+            IsInitialized = true;
         }
 
         public void LoadScene(string name)
