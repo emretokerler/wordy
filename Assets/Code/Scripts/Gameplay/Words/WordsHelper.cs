@@ -3,24 +3,29 @@ using System.IO;
 using UnityEngine;
 using Wordy.Grids;
 using Wordy.Resources;
+using Wordy.Services;
 using Wordy.Words.Data;
 
 namespace Wordy.Words
 {
-    public class WordsHelper : SingletonMonobehaviour<WordsHelper>
+    public class WordsHelper : BaseService
     {
         private WordsHelperData config;
         public List<Word> LoadedWords;
-        public void Initialize() => AddressableHelper.Load<WordsHelperData>(AddressablePaths.DEFAULT_WORDSHELPER_DATA, wordsHelperData => Initialize(wordsHelperData));
-        public void Initialize(WordsHelperData wordsHelperData)
+        
+        public override void Initialize()
         {
-            config = wordsHelperData;
-            LoadedWords = new();
-            LoadWords();
+            AddressableHelper.Load<WordsHelperData>(AddressablePaths.DEFAULT_WORDSHELPER_DATA, (wordsHelperData) =>
+            {
+                config = wordsHelperData;
+                LoadWords();
+                IsInitialized = true;
+            });
         }
 
         void LoadWords()
         {
+            LoadedWords = new();
             if (config.WordLoadMethod == WordLoadMethod.Local)
             {
                 if (config.LocalLoadMethod == LocalLoadMethod.Addressables)
@@ -36,12 +41,12 @@ namespace Wordy.Words
             }
         }
 
-        public static List<Word> CreateWordsForCells(List<Cell> cells)
+        public List<Word> CreateWordsForCells(List<Cell> cells)
         {
-            if (Instance.LoadedWords == null) Debug.LogError("Words not loaded yet");
+            if (LoadedWords == null) Debug.LogError("Words not loaded yet");
 
             var words = new List<Word>();
-            var wordsToUse = new List<Word>(Instance.LoadedWords);
+            var wordsToUse = new List<Word>(LoadedWords);
 
             wordsToUse.ForEach(w =>
             {
@@ -50,6 +55,5 @@ namespace Wordy.Words
 
             return words;
         }
-
     }
 }

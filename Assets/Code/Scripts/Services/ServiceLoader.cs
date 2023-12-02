@@ -3,6 +3,7 @@ using UnityEngine;
 using Wordy.Levels;
 using Wordy.Services.Events;
 using Wordy.Services.Scenes;
+using Wordy.Words;
 
 namespace Wordy.Services
 {
@@ -13,8 +14,10 @@ namespace Wordy.Services
         public void LoadAllServices()
         {
             ServiceLocator.Initialize();
+            
             ServiceLocator.Current.Register(new SceneService());
             ServiceLocator.Current.Register(new LevelsHelper());
+            ServiceLocator.Current.Register(new WordsHelper());
 
             WatchServiceInitializationStatus();
         }
