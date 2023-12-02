@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Wordy.Grids;
+using Wordy.Services;
 using Wordy.Words;
 
 namespace Wordy.Levels
 {
     public abstract class LevelBase : MonoBehaviour, ILevel
     {
+        protected GridHelper gridHelper => _gridHelper ??= ServiceLocator.Current.Get<GridHelper>(); private GridHelper _gridHelper;
         public LevelData LevelConfig;
         public bool IsValid => Validate();
         public abstract void InitializeLevel();

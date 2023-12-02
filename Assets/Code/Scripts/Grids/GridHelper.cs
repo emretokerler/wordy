@@ -2,17 +2,23 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Wordy.Resources;
+using Wordy.Services;
 
 namespace Wordy.Grids
 {
-    public class GridHelper : SingletonMonobehaviour<GridHelper>
+    public class GridHelper : BaseService
     {
-        public void CreateDefaultGridView(Transform parent, Action<GridView> OnComplete)
+        public override void Initialize()
         {
-            AddressableHelper.Instantiate<GridView>(AddressablePaths.DEFAULT_GRIDVIEW_PREFAB, parent ?? transform, Vector3.zero, Quaternion.identity, OnComplete);
+            IsInitialized = true;
         }
 
-        public Grid GetEmptyGrid(int width, int height)
+        public void CreateDefaultGridView(Transform parent, Action<GridView> OnComplete)
+        {
+            AddressableHelper.Instantiate(AddressablePaths.DEFAULT_GRIDVIEW_PREFAB, parent, Vector3.zero, Quaternion.identity, OnComplete);
+        }
+
+        public Grid CreateEmptyGrid(int width, int height)
         {
             return new Grid(width, height);
         }
@@ -28,7 +34,7 @@ namespace Wordy.Grids
             }
         }
 
-        public static IEnumerable<Cell> GetGridTraverser(Grid grid, TraverseMethod method)
+        public IEnumerable<Cell> GetGridTraverser(Grid grid, TraverseMethod method)
         {
             return new GridTraverser(grid, method);
         }

@@ -1,3 +1,4 @@
+using UnityEngine;
 using Wordy.Grids;
 using Grid = Wordy.Grids.Grid;
 
@@ -12,10 +13,8 @@ namespace Wordy.Levels
         {
             ClearPreviousGrid();
 
-            currentGrid = GridHelper.Instance.GetEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
-
-            if (currentGridView != null) Destroy(currentGridView.gameObject);
-            GridHelper.Instance.CreateDefaultGridView(transform, OnGridViewInitialized);
+            currentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
+            gridHelper.CreateDefaultGridView(transform, OnGridViewInitialized);
         }
 
         private void ClearPreviousGrid()
@@ -33,7 +32,7 @@ namespace Wordy.Levels
 
         public override void StartLevel()
         {
-
+            
         }
     }
 }

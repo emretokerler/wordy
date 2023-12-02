@@ -28,6 +28,7 @@ namespace Wordy.Levels
                 {
                     currentLevel = level;
                     currentLevel.SetLevelConfig(LevelHelperData.DefaultLevelData);
+                    currentLevel.InitializeLevel();
                 });
         }
 

@@ -1,8 +1,8 @@
 using System.Collections;
-using UnityEngine;
-using Wordy.Levels;
 using Wordy.Services.Events;
 using Wordy.Services.Scenes;
+using Wordy.Grids;
+using Wordy.Levels;
 using Wordy.Words;
 
 namespace Wordy.Services
@@ -18,6 +18,7 @@ namespace Wordy.Services
             ServiceLocator.Current.Register(new SceneService());
             ServiceLocator.Current.Register(new LevelsHelper());
             ServiceLocator.Current.Register(new WordsHelper());
+            ServiceLocator.Current.Register(new GridHelper());
 
             WatchServiceInitializationStatus();
         }
