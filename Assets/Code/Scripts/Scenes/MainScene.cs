@@ -1,10 +1,3 @@
-using System.Linq;
-using UnityEngine;
-using Wordy.Grids;
-using Wordy.Levels;
-using Wordy.Words;
-using Grid = Wordy.Grids.Grid;
-
 namespace Wordy.Services.Scenes
 {
     public class MainScene : BaseScene
@@ -18,7 +11,6 @@ namespace Wordy.Services.Scenes
         void StartDefaultLevel()
         {
             levelService.SpawnDefaultLevel(transform);
-            // LevelsHelper.Instance.SpawnDefaultLevel();
         }
     }
 }

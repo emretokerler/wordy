@@ -9,7 +9,6 @@ namespace Wordy.Services.Scenes
     {
         protected SceneService sceneService => _sceneService ??= ServiceLocator.Current.Get<SceneService>(); private SceneService _sceneService;
         protected LevelsHelper levelService => _levelService ??= ServiceLocator.Current.Get<LevelsHelper>(); private LevelsHelper _levelService;
-        protected GameObject sceneContent;
 
         public virtual void OnSceneLoaded()
         {
