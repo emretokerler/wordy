@@ -7,8 +7,8 @@ namespace Wordy.Services
 {
     public class ServiceLoader : SingletonMonobehaviour<ServiceLoader>
     {
-        public bool IsAllServicesLoaded => ServiceLocator.Current.IsAllServicesInitialized();
-        
+        public bool IsAllServicesLoaded => ServiceLocator.Current != null && ServiceLocator.Current.IsAllServicesInitialized();
+
         public void LoadAllServices()
         {
             ServiceLocator.Initialize();
