@@ -17,7 +17,8 @@ namespace Wordy.Services.Scenes
 
         void StartDefaultLevel()
         {
-            LevelsHelper.Instance.SpawnDefaultLevel();
+            levelService.SpawnDefaultLevel(transform);
+            // LevelsHelper.Instance.SpawnDefaultLevel();
         }
     }
 }

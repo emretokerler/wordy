@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Wordy.Grids;
-using Wordy.Words;
 using Grid = Wordy.Grids.Grid;
+
 namespace Wordy.Levels
 {
-    public class TestWordPuzzleLevel : LevelBase
+    public class DefaultWordPuzzleLevel : LevelBase
     {
         private Grid currentGrid;
         private GridView currentGridView;
@@ -29,6 +27,7 @@ namespace Wordy.Levels
         void OnGridViewInitialized(GridView gridView)
         {
             currentGridView = gridView;
+            currentGridView.Initialize(currentGrid);
             StartLevel();
         }
 

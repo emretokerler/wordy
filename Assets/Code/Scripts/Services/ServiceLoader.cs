@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Wordy.Levels;
 using Wordy.Services.Events;
 using Wordy.Services.Scenes;
 
@@ -13,6 +14,7 @@ namespace Wordy.Services
         {
             ServiceLocator.Initialize();
             ServiceLocator.Current.Register(new SceneService());
+            ServiceLocator.Current.Register(new LevelsHelper());
 
             WatchServiceInitializationStatus();
         }

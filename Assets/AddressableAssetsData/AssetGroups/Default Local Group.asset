@@ -62,6 +62,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 750bbb3c9b13f4744904b41528f4b520
+    m_Address: Assets/Addressables/Data/Levels/LevelsHelperData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c3063ff18cfa44868a44939dc5e2d89
+    m_Address: Assets/Addressables/Prefabs/Levels/DefaultLevelTemplate.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8a08292e0830e4369b4edebbd9c12e75, type: 2}
   m_SchemaSet:

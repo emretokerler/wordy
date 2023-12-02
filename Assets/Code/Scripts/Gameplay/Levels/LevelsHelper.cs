@@ -1,18 +1,36 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Wordy.Levels.Data;
 using Wordy.Resources;
+using Wordy.Services;
+using Wordy.Words;
 
 namespace Wordy.Levels
 {
-    public class LevelsHelper : SingletonMonobehaviour<LevelsHelper>
+    public class LevelsHelper : BaseService
     {
-        public void SpawnDefaultLevel(LevelData levelData)
+        [HideInInspector] public LevelsHelperData LevelHelperData;
+
+        public LevelBase CurrentLevel => currentLevel; private LevelBase currentLevel;
+
+        public override void Initialize()
         {
-            AddressableHelper.Instantiate<LevelBase>(AddressablePaths.DEFAULT_LEVEL_TEMPLATE, transform, Vector3.zero, Quaternion.identity, (level) =>
-            {   
-                level.SetLevelConfig(levelData);
+            AddressableHelper.Load<LevelsHelperData>(AddressablePaths.DEFAULT_LEVELSHELPER_DATA, (levelHelperData) =>
+            {
+                LevelHelperData = levelHelperData;
+                IsInitialized = true;
             });
         }
+
+        public void SpawnDefaultLevel(Transform spawnParent)
+        {
+            AddressableHelper.Instantiate<LevelBase>(AddressablePaths.DEFAULT_LEVEL_TEMPLATE, spawnParent, Vector3.zero, Quaternion.identity, (level) =>
+                {
+                    currentLevel = level;
+                    currentLevel.SetLevelConfig(LevelHelperData.DefaultLevelData);
+                });
+        }
+
+
     }
 }
