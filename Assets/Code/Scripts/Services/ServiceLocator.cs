@@ -51,5 +51,15 @@ namespace Wordy.Services
 
             services.Remove(key);
         }
+
+        public bool IsAllServicesInitialized()
+        {
+            foreach (var service in services)
+            {
+                if (!service.Value.IsInitialized)
+                    return false;
+            }
+            return true;
+        }
     }
 }
