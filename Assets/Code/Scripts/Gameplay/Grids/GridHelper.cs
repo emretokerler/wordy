@@ -13,7 +13,7 @@ namespace Wordy.Grids
             IsInitialized = true;
         }
 
-        public void CreateDefaultGridView(Transform parent, Action<GridView> OnComplete)
+        public void SpawnDefaultGridView(Transform parent, Action<GridView> OnComplete)
         {
             AddressableHelper.Instantiate(AddressablePaths.DEFAULT_GRIDVIEW_PREFAB, parent, Vector3.zero, Quaternion.identity, OnComplete);
         }

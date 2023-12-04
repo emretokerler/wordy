@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Wordy.Grids.Data;
+using Wordy.Grids.Events;
 using Wordy.Resources;
-using Wordy.Services.Grids.Data;
 
 namespace Wordy.Grids
 {
@@ -17,6 +19,7 @@ namespace Wordy.Grids
             {
                 GridViewData = gridViewData;
                 CreateCells();
+                GridViewInitializedEvent.Trigger(this);
             });
         }
 
@@ -46,6 +49,21 @@ namespace Wordy.Grids
         private string GetCellName(Cell cell)
         {
             return $"Cell-{cell.X + 1}x{cell.Y + 1}";
+        }
+
+        public List<Vector3> GetCornerPoints()
+        {
+            var bounds = transform.GetMaxBounds();
+
+            var corners = new List<Vector3>
+            {
+                new (bounds.max.x, 0, bounds.min.z),
+                new (bounds.min.x, 0, bounds.max.z),
+                new (bounds.min.x, 0, bounds.min.z),
+                new (bounds.max.x, 0, bounds.max.z)
+            };
+
+            return corners;
         }
     }
 }

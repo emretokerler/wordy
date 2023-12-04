@@ -14,7 +14,7 @@ namespace Wordy.Levels
             ClearPreviousGrid();
 
             currentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
-            gridHelper.CreateDefaultGridView(transform, OnGridViewInitialized);
+            gridHelper.SpawnDefaultGridView(transform, OnGridViewSpawned);
         }
 
         private void ClearPreviousGrid()
@@ -23,16 +23,17 @@ namespace Wordy.Levels
             currentGrid = null;
         }
 
-        void OnGridViewInitialized(GridView gridView)
+        private void OnGridViewSpawned(GridView gridView)
         {
             currentGridView = gridView;
             currentGridView.Initialize(currentGrid);
             StartLevel();
         }
 
+
         public override void StartLevel()
         {
-            
+
         }
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Wordy.Grids;
 
-namespace Wordy.Services.Grids.Data
+namespace Wordy.Grids.Data
 {
     [CreateAssetMenu(fileName = "GridViewData", menuName = "ScriptableObject/GridViewData")]
     public class GridViewData : ScriptableObject
