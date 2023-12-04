@@ -28,6 +28,7 @@ namespace Wordy.Services.Scenes
             }
             else
             {
+                // Note: add condition if loading not started
                 ServiceLoader.Instance.LoadAllServices();
             }
         }
