@@ -10,6 +10,8 @@ namespace Wordy.Grids
     {
         [HideInInspector] public GridViewData GridViewData;
         private Grid _grid;
+        public int GridWidth => _grid.Width;
+        public int GridHeight => _grid.Height;
 
         public void Initialize(Grid grid)
         {
