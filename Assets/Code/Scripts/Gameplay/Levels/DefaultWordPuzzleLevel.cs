@@ -16,6 +16,7 @@ namespace Wordy.Levels
             ClearPreviousGrid();
 
             currentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
+            gridHelper.FillWithRandomLetters(currentGrid);
             gridHelper.SpawnDefaultGridView(transform, OnGridViewSpawned);
         }
 
@@ -31,7 +32,6 @@ namespace Wordy.Levels
             currentGridView.Initialize(currentGrid);
             StartLevel();
         }
-
 
         public override void StartLevel()
         {
@@ -82,7 +82,7 @@ namespace Wordy.Levels
 
         void HandleRefreshClicked(RefreshClickedEvent e)
         {
-            Debug.Log(e.GetType().ToString());
+            InitializeLevel();
         }
 
         void HandleFindClicked(FindClickedEvent e)

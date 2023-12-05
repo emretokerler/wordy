@@ -132,36 +132,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4410184268742898986}
     m_Modifications:
-    - target: {fileID: 111076470619398259, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 338475422742536540, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1830467745502639425, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2619845691184999685, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3493689698414016318, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879041204381629958, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4168679462019511020, guid: d43979289a8c340d58545cf00132c3a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -212,20 +182,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4171455818962618990, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6933061980938507119, guid: d43979289a8c340d58545cf00132c3a0,
         type: 3}
       propertyPath: m_Name
       value: UILevelConfig
-      objectReference: {fileID: 0}
-    - target: {fileID: 6933061980938507119, guid: d43979289a8c340d58545cf00132c3a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

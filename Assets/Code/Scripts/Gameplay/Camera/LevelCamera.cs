@@ -11,10 +11,14 @@ namespace Wordy.Gameplay.Cameras
     public class LevelCamera : MonoBehaviour
     {
         private CinemachineVirtualCamera vCam => _vCam ??= GetComponent<CinemachineVirtualCamera>(); private CinemachineVirtualCamera _vCam;
-
+        private Transform groupComposerParent;
         private void CreateGroupComposerAccordingToGridView(GridView gridView)
         {
-            var groupComposerParent = new GameObject("CinemachineGroupComposer").transform;
+            if (groupComposerParent != null)
+            {
+                Destroy(groupComposerParent.gameObject);
+            }
+            groupComposerParent = new GameObject("CinemachineGroupComposer").transform;
 
             var targetGroup = new GameObject(typeof(CinemachineTargetGroup).ToString()).AddComponent<CinemachineTargetGroup>();
             targetGroup.transform.SetParent(groupComposerParent);

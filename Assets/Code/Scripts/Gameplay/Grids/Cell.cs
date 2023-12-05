@@ -5,7 +5,7 @@ namespace Wordy.Grids
     {
         public int X { get; private set; }
         public int Y { get; private set; }
-        public char Letter { get; private set; }
+        public char Letter { get; set; }
         public bool IsHighlighted;
 
         public Cell(int x, int y, char letter)
