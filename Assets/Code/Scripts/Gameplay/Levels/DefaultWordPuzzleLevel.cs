@@ -61,29 +61,33 @@ namespace Wordy.Levels
 
         void HandleLevelWidthDecreased(LevelWidthDecreaseClickedEvent e)
         {
-            Debug.Log(e.GetType().ToString());
+            LevelConfig.GridWidth--;
+            InitializeLevel();
         }
         void HandleLevelWidthIncreased(LevelWidthIncreaseClickedEvent e)
         {
-            Debug.Log(e.GetType().ToString());
+            LevelConfig.GridWidth++;
+            InitializeLevel();
         }
         void HandleLevelHeightDecreased(LevelHeightDecreaseClickedEvent e)
         {
-            Debug.Log(e.GetType().ToString());
+            LevelConfig.GridHeight--;
+            InitializeLevel();
         }
         void HandleLevelHeightIncreased(LevelHeightIncreaseClickedEvent e)
         {
-            Debug.Log(e.GetType().ToString());
+            LevelConfig.GridHeight++;
+            InitializeLevel();
         }
+
         void HandleRefreshClicked(RefreshClickedEvent e)
         {
             Debug.Log(e.GetType().ToString());
         }
+
         void HandleFindClicked(FindClickedEvent e)
         {
             Debug.Log(e.GetType().ToString());
         }
-
-
     }
 }
