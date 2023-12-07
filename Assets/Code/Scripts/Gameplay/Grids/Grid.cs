@@ -1,3 +1,5 @@
+using Wordy.Utils;
+
 namespace Wordy.Grids
 {
     public class Grid
@@ -20,7 +22,7 @@ namespace Wordy.Grids
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    Cells[x, y] = new Cell(x, y, ' ');
+                    Cells[x, y] = new Cell(x, y, Constants.EMPTY_LETTER);
                 }
             }
         }

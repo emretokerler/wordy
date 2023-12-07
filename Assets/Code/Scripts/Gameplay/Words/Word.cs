@@ -11,6 +11,7 @@ namespace Wordy.Words
         public string Content;
         public bool IsFound;
         public List<Cell> Cells;
+        public int Length => Content.Length;
 
         public Word()
         {
@@ -44,6 +45,11 @@ namespace Wordy.Words
         private void Reveal()
         {
 
+        }
+
+        public char GetCharAt(int index)
+        {
+            return Content[index];
         }
 
     }
