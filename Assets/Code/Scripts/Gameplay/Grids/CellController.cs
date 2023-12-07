@@ -18,11 +18,13 @@ namespace Wordy.Grids
         private void HandleCellHighlighted()
         {
             Cell.IsHighlighted = true;
+            CellHighlightedEvent.Trigger(this);
         }
 
         private void HandleCellUnhighlighted()
         {
             Cell.IsHighlighted = false;
+            CellUnhighlightedEvent.Trigger(this);
         }
 
         private void OnMouseOver()
