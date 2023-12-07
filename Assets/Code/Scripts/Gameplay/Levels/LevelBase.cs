@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Wordy.Grids;
@@ -9,6 +8,7 @@ namespace Wordy.Levels
 {
     public abstract class LevelBase : MonoBehaviour, ILevel
     {
+        protected WordsHelper wordsHelper => _wordsHelper ??= ServiceLocator.Current.Get<WordsHelper>(); private WordsHelper _wordsHelper;
         protected GridHelper gridHelper => _gridHelper ??= ServiceLocator.Current.Get<GridHelper>(); private GridHelper _gridHelper;
         public LevelData LevelConfig;
         public bool IsValid => Validate();
