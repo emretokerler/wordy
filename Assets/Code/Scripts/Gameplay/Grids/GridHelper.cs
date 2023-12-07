@@ -65,7 +65,7 @@ namespace Wordy.Grids
                         }
 
                         foundPlaceForWord = true;
-                        Debug.Log($"Found empty space for: {word.Content} Space Length: {randomSpace.Count}");
+                        // Debug.Log($"Found empty space for: {word.Content} Space Length: {randomSpace.Count}");
                     }
                     catch (Exception e)
                     {
