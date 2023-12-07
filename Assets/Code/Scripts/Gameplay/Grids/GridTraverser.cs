@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Wordy.Grids
 {
-    public class GridTraverser : IEnumerable<Cell>
+    public class GridTraverser
     {
         public Cell Current { get; private set; }
         private readonly Grid grid;
@@ -16,7 +16,7 @@ namespace Wordy.Grids
             this.method = method;
         }
 
-        public IEnumerator<Cell> GetEnumerator()
+        public List<List<Cell>> GetTraverseList()
         {
             switch (method)
             {
@@ -41,119 +41,141 @@ namespace Wordy.Grids
             }
         }
 
-        private IEnumerator<Cell> TraverseHorizontal()
+        private List<List<Cell>> TraverseHorizontal()
         {
+            List<List<Cell>> cellRows = new();
             for (int y = 0; y < grid.Height; y++)
             {
+                cellRows.Add(new());
                 for (int x = 0; x < grid.Width; x++)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    cellRows[^1].Add(grid.GetCell(x, y));
                 }
             }
+            return cellRows;
         }
 
-        private IEnumerator<Cell> TraverseVertical()
+        private List<List<Cell>> TraverseVertical()
         {
+            List<List<Cell>> cellColumns = new();
             for (int x = 0; x < grid.Width; x++)
             {
+                List<Cell> column = new();
                 for (int y = 0; y < grid.Height; y++)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    column.Add(grid.GetCell(x, y));
                 }
+                cellColumns.Add(column);
             }
+            return cellColumns;
         }
 
-        private IEnumerator<Cell> TraverseDiagonalLeft()
+
+        private List<List<Cell>> TraverseDiagonalLeft()
         {
-            // Top-left to bottom-right
+            List<List<Cell>> diagonals = new();
             for (int layer = 0; layer < grid.Width + grid.Height - 1; layer++)
             {
+                List<Cell> diagonal = new();
                 int startX = layer < grid.Width ? layer : grid.Width - 1;
                 int startY = layer < grid.Width ? 0 : layer - grid.Width + 1;
 
                 for (int x = startX, y = startY; x >= 0 && y < grid.Height; x--, y++)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    diagonal.Add(grid.GetCell(x, y));
                 }
+                diagonals.Add(diagonal);
             }
+            return diagonals;
         }
 
-        private IEnumerator<Cell> TraverseDiagonalRight()
+
+        private List<List<Cell>> TraverseDiagonalRight()
         {
-            // diagonal traversal starting from top-right
+            List<List<Cell>> diagonals = new();
             for (int layer = 0; layer < grid.Width + grid.Height - 1; layer++)
             {
+                List<Cell> diagonal = new();
                 int startX = Mathf.Min(layer, grid.Width - 1);
                 int startY = Mathf.Min(layer, grid.Height - 1);
 
                 for (int x = startX, y = startY; x >= 0 && y >= 0; x--, y--)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    diagonal.Add(grid.GetCell(x, y));
                 }
+                diagonals.Add(diagonal);
             }
+            return diagonals;
         }
 
-        private IEnumerator<Cell> ReverseTraverseHorizontal()
+
+        private List<List<Cell>> ReverseTraverseHorizontal()
         {
+            List<List<Cell>> cellRows = new();
             for (int y = grid.Height - 1; y >= 0; y--)
             {
+                List<Cell> row = new();
                 for (int x = grid.Width - 1; x >= 0; x--)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    row.Add(grid.GetCell(x, y));
                 }
+                cellRows.Add(row);
             }
+            return cellRows;
         }
 
-        private IEnumerator<Cell> ReverseTraverseVertical()
+
+        private List<List<Cell>> ReverseTraverseVertical()
         {
+            List<List<Cell>> cellColumns = new();
             for (int x = grid.Width - 1; x >= 0; x--)
             {
+                List<Cell> column = new();
                 for (int y = grid.Height - 1; y >= 0; y--)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    column.Add(grid.GetCell(x, y));
                 }
+                cellColumns.Add(column);
             }
+            return cellColumns;
         }
 
-        private IEnumerator<Cell> ReverseTraverseDiagonalLeft()
+
+        private List<List<Cell>> ReverseTraverseDiagonalLeft()
         {
+            List<List<Cell>> diagonals = new();
             for (int layer = grid.Width + grid.Height - 2; layer >= 0; layer--)
             {
+                List<Cell> diagonal = new();
                 int startX = Mathf.Min(layer, grid.Width - 1);
                 int startY = Mathf.Max(0, layer - grid.Width + 1);
 
                 for (int x = startX, y = startY; x >= 0 && y < grid.Height; x--, y++)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    diagonal.Add(grid.GetCell(x, y));
                 }
+                diagonals.Add(diagonal);
             }
+            return diagonals;
         }
 
-        private IEnumerator<Cell> ReverseTraverseDiagonalRight()
+
+        private List<List<Cell>> ReverseTraverseDiagonalRight()
         {
+            List<List<Cell>> diagonals = new();
             for (int layer = grid.Width + grid.Height - 2; layer >= 0; layer--)
             {
+                List<Cell> diagonal = new();
                 int startX = Mathf.Max(0, layer - grid.Height + 1);
                 int startY = Mathf.Min(layer, grid.Width - 1);
 
                 for (int x = startX, y = startY; x < grid.Width && y < grid.Height; x++, y++)
                 {
-                    Current = grid.GetCell(x, y);
-                    yield return Current;
+                    diagonal.Add(grid.GetCell(x, y));
                 }
+                diagonals.Add(diagonal);
             }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return diagonals;
         }
     }
 
