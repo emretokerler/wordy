@@ -12,6 +12,8 @@ namespace Wordy.Grids
 {
     public class GridHelper : BaseService
     {
+        private List<string> traverseMethods;
+
         public override void Initialize()
         {
             IsInitialized = true;
@@ -29,25 +31,49 @@ namespace Wordy.Grids
 
         public void FillWithWords(Grid grid, List<Word> words)
         {
-
+            int traverseMethodCount = Enum.GetNames(typeof(TraverseMethod)).Length;
             for (int i = 0; i < words.Count; i++)
             {
                 var word = words[i];
-                var randomTraverser = GetRandomTraverser(grid);
 
-                try
+                for (int t = 0; t < traverseMethodCount; t++)
                 {
-                    var availableCellLists = randomTraverser.FindAll(list => GetAvailableSpacesForWord(list, word).Count != 0);
-                    var randomCellList = availableCellLists[Random.Range(0, availableCellLists.Count)];
-                    var availableSpaces = GetAvailableSpacesForWord(randomCellList, word);
-                    var randomSpace = availableSpaces[Random.Range(0, availableSpaces.Count)];
+                    var randomTraverser = GetRandomTraverser(grid);
 
-                    Debug.Log($"Found empty space for: {word} Space Length: {randomSpace.Count}");
-                }
-                catch (Exception)
-                {
-                    Debug.LogError($"Could not find available space for word: {word}");
-                    break;
+                    // Debug.Log($"{randomTraverser[0][0].X} {randomTraverser[0][0].Y} - {randomTraverser[^1][^1].X} {randomTraverser[^1][^1].Y}");
+
+                    // Debug.Log(string.Join(" - ", randomTraverser.Select(rt => string.Join(",", rt.Select(cell => $"{cell.X}x{cell.Y}")))));
+
+                    bool foundPlaceForWord = false;
+
+                    try
+                    {
+                        var availableCellLists = randomTraverser.FindAll(list => GetAvailableSpacesForWord(list, word).Count != 0);
+
+                        if (availableCellLists.Count == 0) continue;
+
+                        var randomCellList = availableCellLists[Random.Range(0, availableCellLists.Count)];
+                        var availableSpaces = GetAvailableSpacesForWord(randomCellList, word);
+
+                        if (availableSpaces.Count == 0) continue;
+
+                        var randomSpace = availableSpaces[Random.Range(0, availableSpaces.Count)];
+
+                        for (int spaceIndex = 0; spaceIndex < randomSpace.Count; spaceIndex++)
+                        {
+                            randomSpace[spaceIndex].Letter = word.GetCharAt(spaceIndex);
+                        }
+
+                        foundPlaceForWord = true;
+                        Debug.Log($"Found empty space for: {word.Content} Space Length: {randomSpace.Count}");
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                        Debug.LogError($"Could not find available space for word: {word.Content}");
+                    }
+
+                    if (foundPlaceForWord) break;
                 }
             }
         }
@@ -56,7 +82,11 @@ namespace Wordy.Grids
         {
             var spaces = new List<List<Cell>>();
 
-            for (int i = list.Count - word.Length + 1; i >= 0; i--)
+            if (word.Length > list.Count)
+                return spaces;
+
+            var startingIndex = Mathf.Clamp(list.Count - word.Length, 0, list.Count - 1);
+            for (int i = startingIndex; i >= 0; i--)
             {
                 spaces.Add(new());
                 int wordIndex = 0;
@@ -64,27 +94,37 @@ namespace Wordy.Grids
                 {
                     if (list[j].Letter == word.GetCharAt(wordIndex) || list[j].Letter.Equals(Constants.EMPTY_LETTER))
                     {
+                        // Debug.Log($"Cell: {list[j].X}x{list[j].Y} - " + word.GetCharAt(wordIndex));
                         spaces[^1].Add(list[j]);
                         wordIndex++;
+                        if (wordIndex >= word.Length)
+                        {
+                            break;
+                        }
                     }
                     else
                     {
+                        spaces.RemoveAt(spaces.Count - 1);
                         break;
                     }
                 }
             }
 
-            spaces.RemoveAll(space => space.Count == 0);
+            var removed = spaces.RemoveAll(space => space.Count == 0);
             return spaces;
         }
 
-        public void FillWithRandomLetters(Grid grid)
+        public void FillEmptyCellsWithRandomLetters(Grid grid)
         {
             for (int x = 0; x < grid.Width; x++)
             {
                 for (int y = 0; y < grid.Height; y++)
                 {
-                    grid.GetCell(x, y).Letter = GetRandomChar();
+                    var cell = grid.GetCell(x, y);
+                    if (cell.Letter.Equals(Constants.EMPTY_LETTER))
+                    {
+                        cell.Letter = GetRandomChar();
+                    }
                 }
             }
         }
@@ -96,8 +136,16 @@ namespace Wordy.Grids
 
         private TraverseMethod GetRandomTraverseMethod()
         {
-            var traverseMethods = Enum.GetNames(typeof(TraverseMethod));
-            return Enum.Parse<TraverseMethod>(traverseMethods[Random.Range(0, traverseMethods.Length)]);
+            if (traverseMethods == null || traverseMethods.Count == 0)
+            {
+                traverseMethods = Enum.GetNames(typeof(TraverseMethod)).ToList();
+            }
+
+            var randomIndex = Random.Range(0, traverseMethods.Count);
+            var method = Enum.Parse<TraverseMethod>(traverseMethods[randomIndex]);
+            traverseMethods.RemoveAt(randomIndex);
+
+            return method;
         }
 
         public List<List<Cell>> GetGridTraverser(Grid grid, TraverseMethod method)

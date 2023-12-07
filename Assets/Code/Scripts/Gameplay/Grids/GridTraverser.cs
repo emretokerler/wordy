@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Wordy.Grids
@@ -41,6 +42,11 @@ namespace Wordy.Grids
             }
         }
 
+        void ReverseCellList(List<Cell> list)
+        {
+            list.Reverse();
+        }
+
         private List<List<Cell>> TraverseHorizontal()
         {
             List<List<Cell>> cellRows = new();
@@ -70,7 +76,6 @@ namespace Wordy.Grids
             return cellColumns;
         }
 
-
         private List<List<Cell>> TraverseDiagonalLeft()
         {
             List<List<Cell>> diagonals = new();
@@ -89,99 +94,58 @@ namespace Wordy.Grids
             return diagonals;
         }
 
-
         private List<List<Cell>> TraverseDiagonalRight()
         {
-            List<List<Cell>> diagonals = new();
-            for (int layer = 0; layer < grid.Width + grid.Height - 1; layer++)
-            {
-                List<Cell> diagonal = new();
-                int startX = Mathf.Min(layer, grid.Width - 1);
-                int startY = Mathf.Min(layer, grid.Height - 1);
+            List<List<Cell>> diagonals = new List<List<Cell>>();
 
-                for (int x = startX, y = startY; x >= 0 && y >= 0; x--, y--)
+            for (int start = 0; start < grid.Height + grid.Width - 1; start++)
+            {
+                List<Cell> diagonal = new List<Cell>();
+                int x = start < grid.Height ? 0 : start - grid.Height + 1;
+                int y = start < grid.Height ? grid.Height - 1 - start : 0;
+
+                while (x < grid.Width && y < grid.Height)
                 {
                     diagonal.Add(grid.GetCell(x, y));
+                    x++;
+                    y++;
                 }
                 diagonals.Add(diagonal);
             }
             return diagonals;
         }
-
 
         private List<List<Cell>> ReverseTraverseHorizontal()
         {
-            List<List<Cell>> cellRows = new();
-            for (int y = grid.Height - 1; y >= 0; y--)
-            {
-                List<Cell> row = new();
-                for (int x = grid.Width - 1; x >= 0; x--)
-                {
-                    row.Add(grid.GetCell(x, y));
-                }
-                cellRows.Add(row);
-            }
-            return cellRows;
+            var list = TraverseHorizontal();
+            list.ForEach(ReverseCellList);
+            return list;
         }
-
 
         private List<List<Cell>> ReverseTraverseVertical()
         {
-            List<List<Cell>> cellColumns = new();
-            for (int x = grid.Width - 1; x >= 0; x--)
-            {
-                List<Cell> column = new();
-                for (int y = grid.Height - 1; y >= 0; y--)
-                {
-                    column.Add(grid.GetCell(x, y));
-                }
-                cellColumns.Add(column);
-            }
-            return cellColumns;
+            var list = TraverseVertical();
+            list.ForEach(ReverseCellList);
+            return list;
         }
-
 
         private List<List<Cell>> ReverseTraverseDiagonalLeft()
         {
-            List<List<Cell>> diagonals = new();
-            for (int layer = grid.Width + grid.Height - 2; layer >= 0; layer--)
-            {
-                List<Cell> diagonal = new();
-                int startX = Mathf.Min(layer, grid.Width - 1);
-                int startY = Mathf.Max(0, layer - grid.Width + 1);
-
-                for (int x = startX, y = startY; x >= 0 && y < grid.Height; x--, y++)
-                {
-                    diagonal.Add(grid.GetCell(x, y));
-                }
-                diagonals.Add(diagonal);
-            }
-            return diagonals;
+            var list = TraverseDiagonalLeft();
+            list.ForEach(ReverseCellList);
+            return list;
         }
-
 
         private List<List<Cell>> ReverseTraverseDiagonalRight()
         {
-            List<List<Cell>> diagonals = new();
-            for (int layer = grid.Width + grid.Height - 2; layer >= 0; layer--)
-            {
-                List<Cell> diagonal = new();
-                int startX = Mathf.Max(0, layer - grid.Height + 1);
-                int startY = Mathf.Min(layer, grid.Width - 1);
-
-                for (int x = startX, y = startY; x < grid.Width && y < grid.Height; x++, y++)
-                {
-                    diagonal.Add(grid.GetCell(x, y));
-                }
-                diagonals.Add(diagonal);
-            }
-            return diagonals;
+            var list = TraverseDiagonalRight();
+            list.ForEach(ReverseCellList);
+            return list;
         }
     }
 
     public enum TraverseMethod
     {
-        None = -1,
         Horizontal,
         Vertical,
         DiagonalLeft,
