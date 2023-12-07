@@ -29,8 +29,9 @@ namespace Wordy.Grids
             return new Grid(width, height);
         }
 
-        public void FillWithWords(Grid grid, List<Word> words)
+        public List<Word> FillWithWords(Grid grid, List<Word> words)
         {
+            List<Word> filledWords = new();
             int traverseMethodCount = Enum.GetNames(typeof(TraverseMethod)).Length;
             for (int i = 0; i < words.Count; i++)
             {
@@ -57,14 +58,18 @@ namespace Wordy.Grids
 
                         if (availableSpaces.Count == 0) continue;
 
-                        var randomSpace = availableSpaces[Random.Range(0, availableSpaces.Count)];
+                        var selectedCellGroup = availableSpaces[Random.Range(0, availableSpaces.Count)];
 
-                        for (int spaceIndex = 0; spaceIndex < randomSpace.Count; spaceIndex++)
+                        for (int index = 0; index < selectedCellGroup.Count; index++)
                         {
-                            randomSpace[spaceIndex].Letter = word.GetCharAt(spaceIndex);
+                            selectedCellGroup[index].Letter = word.GetCharAt(index);
                         }
 
+                        word.Cells = new(selectedCellGroup);
+                        filledWords.Add(word);
+                        
                         foundPlaceForWord = true;
+                        if (foundPlaceForWord) break;
                         // Debug.Log($"Found empty space for: {word.Content} Space Length: {randomSpace.Count}");
                     }
                     catch (Exception e)
@@ -73,9 +78,9 @@ namespace Wordy.Grids
                         Debug.LogError($"Could not find available space for word: {word.Content}");
                     }
 
-                    if (foundPlaceForWord) break;
                 }
             }
+            return filledWords;
         }
 
         private List<List<Cell>> GetAvailableSpacesForWord(List<Cell> list, Word word)

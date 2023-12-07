@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Wordy.Events;
 using Wordy.Grids;
 using Wordy.UI.Events;
+using Wordy.Words;
 using Grid = Wordy.Grids.Grid;
 
 namespace Wordy.Levels
@@ -10,14 +12,16 @@ namespace Wordy.Levels
     {
         private Grid currentGrid;
         private GridView currentGridView;
+        public List<Word> LevelWords;
 
         public override void InitializeLevel()
         {
             ClearPreviousGrid();
 
             currentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
-            gridHelper.FillWithWords(currentGrid, wordsHelper.LoadedWords);
+            LevelWords = gridHelper.FillWithWords(currentGrid, wordsHelper.WordsLibrary);
             gridHelper.FillEmptyCellsWithRandomLetters(currentGrid);
+            // wordsHelper.CreateWordsForCells(new List<Cell>(currentGrid.Cells));
             gridHelper.SpawnDefaultGridView(transform, OnGridViewSpawned);
         }
 

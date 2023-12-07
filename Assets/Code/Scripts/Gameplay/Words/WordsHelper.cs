@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using Wordy.Grids;
 using Wordy.Resources;
@@ -11,8 +12,8 @@ namespace Wordy.Words
     public class WordsHelper : BaseService
     {
         private WordsHelperData config;
-        public List<Word> LoadedWords;
-        
+        public List<Word> WordsLibrary;
+
         public override void Initialize()
         {
             AddressableHelper.Load<WordsHelperData>(AddressablePaths.DEFAULT_WORDSHELPER_DATA, (wordsHelperData) =>
@@ -20,12 +21,13 @@ namespace Wordy.Words
                 config = wordsHelperData;
                 LoadWords();
                 IsInitialized = true;
+                Debug.Log("Words library: " + string.Join(",", WordsLibrary.Select(w => w.Content).ToList()));
             });
         }
 
         void LoadWords()
         {
-            LoadedWords = new();
+            WordsLibrary = new();
             if (config.WordLoadMethod == WordLoadMethod.Local)
             {
                 if (config.LocalLoadMethod == LocalLoadMethod.Addressables)
@@ -35,7 +37,7 @@ namespace Wordy.Words
                     var wordsData = JsonUtility.FromJson<WordsData>(contentStr);
                     for (int i = 0; i < wordsData.Words.Length; i++)
                     {
-                        LoadedWords.Add(new Word(wordsData.Words[i]));
+                        WordsLibrary.Add(new Word(wordsData.Words[i]));
                     }
                 }
             }
@@ -43,16 +45,15 @@ namespace Wordy.Words
 
         public List<Word> CreateWordsForCells(List<Cell> cells)
         {
-            if (LoadedWords == null) Debug.LogError("Words not loaded yet");
+            if (WordsLibrary == null) Debug.LogError("Words not loaded yet");
 
             var words = new List<Word>();
-            var wordsToUse = new List<Word>(LoadedWords);
+            var wordsToUse = new List<Word>(WordsLibrary);
 
             wordsToUse.ForEach(w =>
             {
-                words.Add(new Word { Cells = cells });
+                // words.Add(new Word { Cells = cells });
             });
-
             return words;
         }
     }
