@@ -16,7 +16,8 @@ namespace Wordy.Levels
             ClearPreviousGrid();
 
             currentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
-            gridHelper.FillWithRandomLetters(currentGrid);
+            gridHelper.FillWithWords(currentGrid, wordsHelper.LoadedWords);
+            gridHelper.FillEmptyCellsWithRandomLetters(currentGrid);
             gridHelper.SpawnDefaultGridView(transform, OnGridViewSpawned);
         }
 
