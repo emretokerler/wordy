@@ -17,7 +17,12 @@ namespace Wordy.Levels
 
         public virtual void SetLevelConfig(LevelData levelConfig)
         {
-            LevelConfig = levelConfig;
+            LevelConfig = new()
+            {
+                GridWidth = levelConfig.GridWidth,
+                GridHeight = levelConfig.GridHeight,
+                Words = levelConfig.Words
+            };
         }
 
         public virtual bool Validate()
