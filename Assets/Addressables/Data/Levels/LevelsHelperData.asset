@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LevelsHelperData
   m_EditorClassIdentifier: 
   DefaultLevelData:
-    GridWidth: 10
-    GridHeight: 10
-    WordCount: 5
+    GridWidth: 6
+    GridHeight: 6
+    WordCount: 10
     WordLength: 4
     Words: []
