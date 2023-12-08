@@ -21,7 +21,6 @@ namespace Wordy.Words
                 config = wordsHelperData;
                 LoadWords();
                 IsInitialized = true;
-                Debug.Log("Words library: " + string.Join(",", WordsLibrary.Select(w => w.Content).ToList()));
             });
         }
 
@@ -55,6 +54,16 @@ namespace Wordy.Words
                 // words.Add(new Word { Cells = cells });
             });
             return words;
+        }
+
+        public List<Word> GetWords(int wordCount, int wordLength)
+        {
+            if (WordsLibrary == null) Debug.LogError("Words not loaded yet");
+
+            var words = WordsLibrary.FindAll((w) => w.Length == wordLength);
+            words.Sort((w1, w2) => 1 - Random.Range(0, 2) * 2);
+           
+            return  words.GetRange(0, wordCount);
         }
     }
 }

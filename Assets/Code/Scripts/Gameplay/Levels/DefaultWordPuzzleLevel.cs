@@ -24,7 +24,9 @@ namespace Wordy.Levels
             ClearPreviousGrid();
 
             CurrentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
-            LevelWords = gridHelper.FillWithWords(CurrentGrid, wordsHelper.WordsLibrary);
+            var words = wordsHelper.GetWords(LevelConfig.WordCount, LevelConfig.WordLength);
+            
+            LevelWords = gridHelper.FillWithWords(CurrentGrid, words);
             gridHelper.FillEmptyCellsWithRandomLetters(CurrentGrid);
             gridHelper.SpawnDefaultGridView(transform, OnGridViewSpawned);
 
@@ -99,6 +101,12 @@ namespace Wordy.Levels
             GameEvents.On<LevelWidthIncreaseClickedEvent>(HandleLevelWidthIncreased);
             GameEvents.On<LevelHeightDecreaseClickedEvent>(HandleLevelHeightDecreased);
             GameEvents.On<LevelHeightIncreaseClickedEvent>(HandleLevelHeightIncreased);
+
+            GameEvents.On<WordCountDecreasedEvent>(HandleWordCountDecreased);
+            GameEvents.On<WordCountIncreasedEvent>(HandleWordCountIncreased);
+            GameEvents.On<WordLengthDecreasedEvent>(HandleWordLengthDecreased);
+            GameEvents.On<WordLengthIncreasedEvent>(HandleWordLengthIncreased);
+
             GameEvents.On<RefreshClickedEvent>(HandleRefreshClicked);
             GameEvents.On<FindClickedEvent>(HandleFindClicked);
 
@@ -110,6 +118,12 @@ namespace Wordy.Levels
             GameEvents.Off<LevelWidthIncreaseClickedEvent>(HandleLevelWidthIncreased);
             GameEvents.Off<LevelHeightDecreaseClickedEvent>(HandleLevelHeightDecreased);
             GameEvents.Off<LevelHeightIncreaseClickedEvent>(HandleLevelHeightIncreased);
+
+            GameEvents.Off<WordCountDecreasedEvent>(HandleWordCountDecreased);
+            GameEvents.Off<WordCountIncreasedEvent>(HandleWordCountIncreased);
+            GameEvents.Off<WordLengthDecreasedEvent>(HandleWordLengthDecreased);
+            GameEvents.Off<WordLengthIncreasedEvent>(HandleWordLengthIncreased);
+
             GameEvents.Off<RefreshClickedEvent>(HandleRefreshClicked);
             GameEvents.Off<FindClickedEvent>(HandleFindClicked);
 
@@ -137,6 +151,27 @@ namespace Wordy.Levels
             InitializeLevel();
         }
 
+        void HandleWordCountDecreased(WordCountDecreasedEvent e)
+        {
+            LevelConfig.WordCount--;
+            InitializeLevel();
+        }
+        void HandleWordCountIncreased(WordCountIncreasedEvent e)
+        {
+            LevelConfig.WordCount++;
+            InitializeLevel();
+        }
+        void HandleWordLengthDecreased(WordLengthDecreasedEvent e)
+        {
+            LevelConfig.WordLength--;
+            InitializeLevel();
+        }
+        void HandleWordLengthIncreased(WordLengthIncreasedEvent e)
+        {
+            LevelConfig.WordLength++;
+            InitializeLevel();
+        }
+
         void HandleRefreshClicked(RefreshClickedEvent e)
         {
             InitializeLevel();
@@ -144,7 +179,10 @@ namespace Wordy.Levels
 
         void HandleFindClicked(FindClickedEvent e)
         {
-            Debug.Log(e.GetType().ToString());
+            foreach (var word in LevelWords)
+            {
+                word.Reveal();
+            }
         }
 
         void HandleWordRevealed(WordRevealedEvent e)

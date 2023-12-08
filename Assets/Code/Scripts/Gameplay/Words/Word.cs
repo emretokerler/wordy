@@ -68,7 +68,7 @@ namespace Wordy.Words
             Reveal();
         }
 
-        private void Reveal()
+        public void Reveal()
         {
             if (IsRevealed) return;
             HandleWordRevealed(this);
