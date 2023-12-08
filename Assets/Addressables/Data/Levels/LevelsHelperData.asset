@@ -15,4 +15,6 @@ MonoBehaviour:
   DefaultLevelData:
     GridWidth: 10
     GridHeight: 10
+    WordCount: 5
+    WordLength: 4
     Words: []

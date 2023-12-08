@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Wordy.Events;
 using Wordy.Grids.Events;
+using Wordy.Levels;
+using Wordy.Levels.Events;
 using Wordy.UI.Events;
 
 namespace Wordy.UI
@@ -15,18 +17,32 @@ namespace Wordy.UI
         [SerializeField] private Button widthIncreaseButton;
         [SerializeField] private Button heightDecreaseButton;
         [SerializeField] private Button heightIncreaseButton;
+        [SerializeField] private Button wordCountDecreaseButton;
+        [SerializeField] private Button wordCountIncreaseButton;
+        [SerializeField] private Button wordLengthDecreaseButton;
+        [SerializeField] private Button wordLengthIncreaseButton;
         [SerializeField] private Button findButton;
         [SerializeField] private Button refreshButton;
 
         [SerializeField] private TextMeshProUGUI currentWidthTxt;
         [SerializeField] private TextMeshProUGUI currentHeightTxt;
+        [SerializeField] private TextMeshProUGUI currentWordCountTxt;
+        [SerializeField] private TextMeshProUGUI currentWordLengthTxt;
 
+
+        [SerializeField, Range(2, 29)] private int minWordCount;
+        [SerializeField, Range(3, 30)] private int maxWordCount;
+
+        [SerializeField, Range(2, 6)] private int minWordLength;
+        [SerializeField, Range(3, 7)] private int maxWordLength;
 
         [SerializeField, Range(2, 8)] private int minGridSize;
         [SerializeField, Range(3, 10)] private int maxGridSize;
 
         private int currentGridWidth = 0;
         private int currentGridHeight = 0;
+        private int currentWordCount = 0;
+        private int currentWordLength = 0;
 
         private void Awake()
         {
@@ -52,6 +68,14 @@ namespace Wordy.UI
             bottomSectionGroup.alpha = 0;
         }
 
+        private void UpdateSelectors()
+        {
+            UpdateLevelWidthSelector();
+            UpdateLevelHeightSelector();
+            UpdateWordCountSelector();
+            UpdateWordLengthSelector();
+        }
+
         private void UpdateLevelWidthSelector()
         {
             widthDecreaseButton.interactable = currentGridWidth > minGridSize;
@@ -66,6 +90,20 @@ namespace Wordy.UI
             currentHeightTxt.text = currentGridHeight.ToString();
         }
 
+        private void UpdateWordCountSelector()
+        {
+            wordCountDecreaseButton.interactable = currentWordCount > minWordCount;
+            wordCountIncreaseButton.interactable = currentWordCount < maxWordCount;
+            currentWordCountTxt.text = currentWordCount.ToString();
+        }
+
+        private void UpdateWordLengthSelector()
+        {
+            wordLengthDecreaseButton.interactable = currentWordLength > minWordLength;
+            wordLengthIncreaseButton.interactable = currentWordLength < maxWordLength;
+            currentWordLengthTxt.text = currentWordLength.ToString();
+        }
+
         private void OnEnable() => RegisterEvents();
         private void OnDisable() => UnregisterEvents();
         void RegisterEvents()
@@ -77,7 +115,13 @@ namespace Wordy.UI
             GameEvents.On<LevelHeightDecreaseClickedEvent>(HandleLevelHeightDecreased);
             GameEvents.On<LevelHeightIncreaseClickedEvent>(HandleLevelHeightIncreased);
 
+            GameEvents.On<WordCountDecreasedEvent>(HandleWordCountDecreased);
+            GameEvents.On<WordCountIncreasedEvent>(HandleWordCountIncreased);
+            GameEvents.On<WordLengthDecreasedEvent>(HandleWordLengthDecreased);
+            GameEvents.On<WordLengthIncreasedEvent>(HandleWordLengthIncreased);
+
             GameEvents.On<GridViewInitializedEvent>(HandleGridViewInitialized);
+            GameEvents.On<LevelInitializedEvent>(HandleLevelInitialized);
         }
         void UnregisterEvents()
         {
@@ -88,7 +132,14 @@ namespace Wordy.UI
             GameEvents.Off<LevelHeightDecreaseClickedEvent>(HandleLevelHeightDecreased);
             GameEvents.Off<LevelHeightIncreaseClickedEvent>(HandleLevelHeightIncreased);
 
+            GameEvents.Off<WordCountDecreasedEvent>(HandleWordCountDecreased);
+            GameEvents.Off<WordCountIncreasedEvent>(HandleWordCountIncreased);
+            GameEvents.Off<WordLengthDecreasedEvent>(HandleWordLengthDecreased);
+            GameEvents.Off<WordLengthIncreasedEvent>(HandleWordLengthIncreased);
+
+
             GameEvents.Off<GridViewInitializedEvent>(HandleGridViewInitialized);
+            GameEvents.Off<LevelInitializedEvent>(HandleLevelInitialized);
         }
 
         void SetupClickListeners()
@@ -98,6 +149,16 @@ namespace Wordy.UI
 
             heightDecreaseButton.onClick.AddListener(() => LevelHeightDecreaseClickedEvent.Trigger());
             heightIncreaseButton.onClick.AddListener(() => LevelHeightIncreaseClickedEvent.Trigger());
+
+            wordCountDecreaseButton.onClick.AddListener(() => WordCountDecreasedEvent.Trigger());
+            wordCountIncreaseButton.onClick.AddListener(() => WordCountIncreasedEvent.Trigger());
+
+            wordLengthDecreaseButton.onClick.AddListener(() => WordLengthDecreasedEvent.Trigger());
+            wordLengthIncreaseButton.onClick.AddListener(() => WordLengthIncreasedEvent.Trigger());
+
+            heightDecreaseButton.onClick.AddListener(() => LevelHeightDecreaseClickedEvent.Trigger());
+            heightIncreaseButton.onClick.AddListener(() => LevelHeightIncreaseClickedEvent.Trigger());
+
 
             findButton.onClick.AddListener(() => FindClickedEvent.Trigger());
             refreshButton.onClick.AddListener(() => RefreshClickedEvent.Trigger());
@@ -109,6 +170,10 @@ namespace Wordy.UI
             widthIncreaseButton.onClick.RemoveAllListeners();
             heightDecreaseButton.onClick.RemoveAllListeners();
             heightIncreaseButton.onClick.RemoveAllListeners();
+            wordCountIncreaseButton.onClick.RemoveAllListeners();
+            wordCountDecreaseButton.onClick.RemoveAllListeners();
+            wordLengthIncreaseButton.onClick.RemoveAllListeners();
+            wordLengthDecreaseButton.onClick.RemoveAllListeners();
             findButton.onClick.RemoveAllListeners();
             refreshButton.onClick.RemoveAllListeners();
         }
@@ -133,13 +198,44 @@ namespace Wordy.UI
             currentGridHeight++;
             UpdateLevelHeightSelector();
         }
+        void HandleWordCountIncreased(WordCountIncreasedEvent e)
+        {
+            currentWordCount++;
+            UpdateWordCountSelector();
+        }
+        void HandleWordCountDecreased(WordCountDecreasedEvent e)
+        {
+            currentWordCount--;
+            UpdateWordCountSelector();
+        }
+        void HandleWordLengthIncreased(WordLengthIncreasedEvent e)
+        {
+            currentWordLength++;
+            UpdateWordLengthSelector();
+        }
+        void HandleWordLengthDecreased(WordLengthDecreasedEvent e)
+        {
+            currentWordLength--;
+            UpdateWordLengthSelector();
+        }
 
         void HandleGridViewInitialized(GridViewInitializedEvent e)
         {
-            currentGridWidth = e.GridView.GridWidth;
-            currentGridHeight = e.GridView.GridHeight;
-            UpdateLevelWidthSelector();
-            UpdateLevelHeightSelector();
+            // currentGridWidth = e.GridView.GridWidth;
+            // currentGridHeight = e.GridView.GridHeight;
+            // UpdateSelectors();
+
+            // ShowBottomSection();
+        }
+
+        void HandleLevelInitialized(LevelInitializedEvent e)
+        {
+            currentGridWidth = e.Level.LevelConfig.GridWidth;
+            currentGridHeight = e.Level.LevelConfig.GridHeight;
+            currentWordCount = e.Level.LevelConfig.WordCount;
+            currentWordLength = e.Level.LevelConfig.WordLength;
+
+            UpdateSelectors();
             ShowBottomSection();
         }
     }

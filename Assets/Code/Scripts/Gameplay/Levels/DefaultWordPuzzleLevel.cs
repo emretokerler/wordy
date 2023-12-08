@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Wordy.Events;
 using Wordy.Grids;
+using Wordy.Levels.Events;
 using Wordy.UI.Events;
 using Wordy.Utils;
 using Wordy.Words;
@@ -14,29 +15,31 @@ namespace Wordy.Levels
     {
         [SerializeField] private LineRenderer wordHighlightLinePrefab;
         private List<LineRenderer> spawnedHighlightLines;
-        private Grid currentGrid;
-        private GridView currentGridView;
+        public Grid CurrentGrid;
+        public GridView CurrentGridView;
         public List<Word> LevelWords;
 
         public override void InitializeLevel()
         {
             ClearPreviousGrid();
 
-            currentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
-            LevelWords = gridHelper.FillWithWords(currentGrid, wordsHelper.WordsLibrary);
-            gridHelper.FillEmptyCellsWithRandomLetters(currentGrid);
+            CurrentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
+            LevelWords = gridHelper.FillWithWords(CurrentGrid, wordsHelper.WordsLibrary);
+            gridHelper.FillEmptyCellsWithRandomLetters(CurrentGrid);
             gridHelper.SpawnDefaultGridView(transform, OnGridViewSpawned);
 
             foreach (var w in LevelWords)
             {
                 w.IsRevealed = false;
             }
+
+            LevelInitializedEvent.Trigger(this);
         }
 
         private void ClearPreviousGrid()
         {
-            if (currentGridView != null) Destroy(currentGridView.gameObject);
-            currentGrid = null;
+            if (CurrentGridView != null) Destroy(CurrentGridView.gameObject);
+            CurrentGrid = null;
 
             if (LevelWords != null)
             {
@@ -61,8 +64,8 @@ namespace Wordy.Levels
 
         private void OnGridViewSpawned(GridView gridView)
         {
-            currentGridView = gridView;
-            currentGridView.Initialize(currentGrid);
+            CurrentGridView = gridView;
+            CurrentGridView.Initialize(CurrentGrid);
             StartLevel();
         }
 

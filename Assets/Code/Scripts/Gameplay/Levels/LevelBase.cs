@@ -21,6 +21,8 @@ namespace Wordy.Levels
             {
                 GridWidth = levelConfig.GridWidth,
                 GridHeight = levelConfig.GridHeight,
+                WordCount = levelConfig.WordCount,
+                WordLength = levelConfig.WordLength,
                 Words = levelConfig.Words
             };
         }
