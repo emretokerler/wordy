@@ -20,12 +20,27 @@ namespace Wordy.Grids
             letterTxt.text = cell.Letter.ToString();
         }
 
+        IEnumerator PlayHighlightedAnim1()
+        {
+            transform.position += Vector3.up * 0.2f;
+            yield return null;
+        }
+
+        IEnumerator PlayUnhighlightedAnim1()
+        {
+            transform.position -= Vector3.up * 0.2f;
+            yield return null;
+        }
+
         private void OnCellHighlighted(CellController cell)
         {
             if (cell == this)
             {
                 HighlightInfo.IsHighlighted = true;
                 HighlightInfo.HighlightTime = Time.time;
+                CoroutineHelper.Run(PlayHighlightedAnim1());
+
+                Debug.Log(cell.Cell + " hihlight.");
             }
         }
 
@@ -34,6 +49,7 @@ namespace Wordy.Grids
             if (cell == this)
             {
                 Cell.CellController.HighlightInfo.IsHighlighted = false;
+                CoroutineHelper.Run(PlayUnhighlightedAnim1());
             }
         }
 
@@ -57,7 +73,7 @@ namespace Wordy.Grids
 
         private void OnMouseExit()
         {
-            if (!HighlightInfo.IsHighlighted)
+            if (HighlightInfo.IsHighlighted)
             {
                 UnhighlightCell();
             }
@@ -68,10 +84,12 @@ namespace Wordy.Grids
         void RegisterEvents()
         {
             GameEvents.On<CellHighlightedEvent>(HandleCellHighlighted);
+            GameEvents.On<CellUnhighlightedEvent>(HandleCellUnhighlighted);
         }
         void UnregisterEvents()
         {
             GameEvents.Off<CellHighlightedEvent>(HandleCellHighlighted);
+            GameEvents.Off<CellUnhighlightedEvent>(HandleCellUnhighlighted);
         }
 
         void HandleCellHighlighted(CellHighlightedEvent e)
@@ -79,7 +97,7 @@ namespace Wordy.Grids
             OnCellHighlighted(e.Cell);
         }
 
-        void HandleCellUnhighlighted(CellHighlightedEvent e)
+        void HandleCellUnhighlighted(CellUnhighlightedEvent e)
         {
             OnCellUnhighlighted(e.Cell);
         }

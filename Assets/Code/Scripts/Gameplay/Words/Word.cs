@@ -34,16 +34,16 @@ namespace Wordy.Words
             if (word == this)
             {
                 IsRevealed = true;
-                PlayCellAnimation1();
+                PlayRevealAnimation1();
             }
         }
 
-        private void PlayCellAnimation1()
+        private void PlayRevealAnimation1()
         {
-            CoroutineHelper.Run(CR_PlayCellAnimation1());
+            CoroutineHelper.Run(CR_PlayRevealAnimation1());
         }
 
-        private IEnumerator CR_PlayCellAnimation1()
+        private IEnumerator CR_PlayRevealAnimation1()
         {
             var cells = Cells.OrderBy(c => c.CellController.HighlightInfo.HighlightTime);
 
