@@ -896,9 +896,9 @@ MonoBehaviour:
   currentHeightTxt: {fileID: 2959736678167734410}
   currentWordCountTxt: {fileID: 8458304257434940304}
   currentWordLengthTxt: {fileID: 3028313695189146995}
-  minWordCount: 0
+  minWordCount: 2
   maxWordCount: 30
-  minWordLength: 0
+  minWordLength: 3
   maxWordLength: 7
   minGridSize: 3
   maxGridSize: 10

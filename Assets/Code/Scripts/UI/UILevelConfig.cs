@@ -156,10 +156,6 @@ namespace Wordy.UI
             wordLengthDecreaseButton.onClick.AddListener(() => WordLengthDecreasedEvent.Trigger());
             wordLengthIncreaseButton.onClick.AddListener(() => WordLengthIncreasedEvent.Trigger());
 
-            heightDecreaseButton.onClick.AddListener(() => LevelHeightDecreaseClickedEvent.Trigger());
-            heightIncreaseButton.onClick.AddListener(() => LevelHeightIncreaseClickedEvent.Trigger());
-
-
             findButton.onClick.AddListener(() => FindClickedEvent.Trigger());
             refreshButton.onClick.AddListener(() => RefreshClickedEvent.Trigger());
         }
