@@ -4,6 +4,7 @@ using UnityEngine;
 using Wordy.Events;
 using Wordy.Gameplay.Inputs;
 using Wordy.Gameplay.Inputs.Events;
+using Wordy.Utils;
 
 namespace Wordy.Grids
 {
@@ -12,7 +13,9 @@ namespace Wordy.Grids
     {
         public Cell Cell;
         public HighlightInfo HighlightInfo;
+        [SerializeField] private Renderer cube;
         [SerializeField] private TextMeshPro letterTxt;
+        private Color initColor;
 
         public void Init(Cell cell)
         {
@@ -20,6 +23,7 @@ namespace Wordy.Grids
             cell.CellController = this;
             HighlightInfo = new();
             letterTxt.text = cell.Letter.ToString();
+            initColor = cube.material.GetColor(Constants.MATERIAL_COLOR_KEYWORD);
         }
 
         public bool IsNeigbourTo(CellController other)
@@ -31,12 +35,15 @@ namespace Wordy.Grids
 
         IEnumerator PlayHighlightedAnim1()
         {
+            var color = Color.white;
+            cube.material.SetColor(Constants.MATERIAL_COLOR_KEYWORD, color);
             transform.position += Vector3.up * 0.2f;
             yield return null;
         }
 
         IEnumerator PlayUnhighlightedAnim1()
         {
+            cube.material.SetColor(Constants.MATERIAL_COLOR_KEYWORD, initColor);
             transform.position -= Vector3.up * 0.2f;
             yield return null;
         }

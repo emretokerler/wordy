@@ -85,7 +85,7 @@ namespace Wordy.Levels
 
             var randomColor = Color.HSVToRGB(Random.Range(0f, 1f), 1, 1);
             randomColor.a = 0.2f;
-            line.material.SetColor(Constants.UNLIT_MATERIAL_COLOR_KEYWORD, randomColor);
+            line.material.SetColor(Constants.MATERIAL_COLOR_KEYWORD, randomColor);
         }
 
         private void OnEnable() => RegisterEvents();

@@ -52,6 +52,7 @@ MonoBehaviour:
   HighlightInfo:
     IsHighlighted: 0
     HighlightTime: 0
+  cube: {fileID: 1079342213009690641}
   letterTxt: {fileID: 4699024085501782347}
 --- !u!1 &2800784076434884129
 GameObject:
