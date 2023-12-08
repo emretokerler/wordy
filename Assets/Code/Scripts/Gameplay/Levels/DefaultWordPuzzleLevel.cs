@@ -13,7 +13,6 @@ namespace Wordy.Levels
         private Grid currentGrid;
         private GridView currentGridView;
         public List<Word> LevelWords;
-        public List<Cell> HighlightedCells;
 
         public override void InitializeLevel()
         {
@@ -28,8 +27,6 @@ namespace Wordy.Levels
             {
                 w.IsRevealed = false;
             }
-
-            HighlightedCells = new();
         }
 
         private void ClearPreviousGrid()
