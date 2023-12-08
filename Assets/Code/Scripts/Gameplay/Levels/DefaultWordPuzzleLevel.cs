@@ -13,6 +13,7 @@ namespace Wordy.Levels
         private Grid currentGrid;
         private GridView currentGridView;
         public List<Word> LevelWords;
+        public List<Cell> HighlightedCells;
 
         public override void InitializeLevel()
         {
@@ -21,8 +22,14 @@ namespace Wordy.Levels
             currentGrid = gridHelper.CreateEmptyGrid(LevelConfig.GridWidth, LevelConfig.GridHeight);
             LevelWords = gridHelper.FillWithWords(currentGrid, wordsHelper.WordsLibrary);
             gridHelper.FillEmptyCellsWithRandomLetters(currentGrid);
-            // wordsHelper.CreateWordsForCells(new List<Cell>(currentGrid.Cells));
             gridHelper.SpawnDefaultGridView(transform, OnGridViewSpawned);
+
+            foreach (var w in LevelWords)
+            {
+                w.IsRevealed = false;
+            }
+
+            HighlightedCells = new();
         }
 
         private void ClearPreviousGrid()
@@ -40,7 +47,8 @@ namespace Wordy.Levels
 
         public override void StartLevel()
         {
-
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
 
         private void OnEnable() => RegisterEvents();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Wordy.Events;
+using Wordy.Gameplay.Inputs.Events;
 using Wordy.Grids;
 using Wordy.Words.Events;
 
@@ -66,6 +67,17 @@ namespace Wordy.Words
             }
         }
 
+        private void CheckWordCompleted(List<CellController> highlightedCells)
+        {
+            if (highlightedCells.Count != Cells.Count) return;
+            foreach (var hc in highlightedCells)
+            {
+                if (!Cells.Contains(hc.Cell)) return;
+            }
+
+            Reveal();
+        }
+
         private void Reveal()
         {
             HandleWordRevealed(this);
@@ -80,7 +92,9 @@ namespace Wordy.Words
         void RegisterEvents()
         {
             GameEvents.On<CellHighlightedEvent>(HandleCellHighlighted);
+            GameEvents.On<OnPointerUpEvent>(HandlePointerUp);
         }
+
         void UnregisterEvents()
         {
             GameEvents.Off<CellHighlightedEvent>(HandleCellHighlighted);
@@ -90,8 +104,13 @@ namespace Wordy.Words
         {
             if (Cells.Contains(e.Cell.Cell))
             {
-                CheckIfAllCellsHighlighted();
+                // CheckIfAllCellsHighlighted();
             }
+        }
+
+        void HandlePointerUp(OnPointerUpEvent e)
+        {
+            CheckWordCompleted(e.HighlightedCells);
         }
     }
 }
