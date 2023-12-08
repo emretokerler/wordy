@@ -5,8 +5,8 @@ using Wordy.Services;
 
 public class CoroutineHelper : SingletonMonobehaviour<CoroutineHelper>
 {
-    public static IEnumerator Run(IEnumerator coroutine)
+    public static void Run(IEnumerator coroutine)
     {
-        yield return Instance.StartCoroutine(coroutine);
+        Instance.StartCoroutine(coroutine);
     }
 }
