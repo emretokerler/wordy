@@ -47,8 +47,6 @@ namespace Wordy.Levels
 
         public override void StartLevel()
         {
-            gameObject.SetActive(false);
-            gameObject.SetActive(true);
         }
 
         private void OnEnable() => RegisterEvents();

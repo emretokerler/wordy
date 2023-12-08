@@ -48,8 +48,6 @@ namespace Wordy.Grids
                 HighlightInfo.IsHighlighted = true;
                 HighlightInfo.HighlightTime = Time.time;
                 CoroutineHelper.Run(PlayHighlightedAnim1());
-
-                Debug.Log(cell.Cell + " hihlight.");
             }
         }
 

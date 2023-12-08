@@ -59,9 +59,6 @@ namespace Wordy.Gameplay.Inputs
 
                     if (highlightedCells.Count > 1)
                     {
-                        Debug.Log((cell.transform.position - activeCell.transform.position));
-                        Debug.Log(highlightedCells[1].transform.position - highlightedCells[0].transform.position);
-
                         if (new Vector2(cell.Cell.X, cell.Cell.Y) - new Vector2(activeCell.Cell.X, activeCell.Cell.Y) !=
                         new Vector2(highlightedCells[1].Cell.X, highlightedCells[1].Cell.Y) - new Vector2(highlightedCells[0].Cell.X, highlightedCells[0].Cell.Y)) return;
                     }
