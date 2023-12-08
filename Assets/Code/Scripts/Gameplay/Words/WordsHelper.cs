@@ -42,20 +42,6 @@ namespace Wordy.Words
             }
         }
 
-        public List<Word> CreateWordsForCells(List<Cell> cells)
-        {
-            if (WordsLibrary == null) Debug.LogError("Words not loaded yet");
-
-            var words = new List<Word>();
-            var wordsToUse = new List<Word>(WordsLibrary);
-
-            wordsToUse.ForEach(w =>
-            {
-                // words.Add(new Word { Cells = cells });
-            });
-            return words;
-        }
-
         public List<Word> GetWords(int wordCount, int wordLength)
         {
             if (WordsLibrary == null) Debug.LogError("Words not loaded yet");
