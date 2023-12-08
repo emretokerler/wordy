@@ -56,17 +56,6 @@ namespace Wordy.Words
             }
         }
 
-        private void CheckIfAllCellsHighlighted()
-        {
-            Debug.Log("checking for " + Content);
-            var highlightedCells = Cells.FindAll(c => c.CellController.HighlightInfo.IsHighlighted);
-
-            if (highlightedCells.Count >= Content.Length)
-            {
-                Reveal();
-            }
-        }
-
         private void CheckWordCompleted(List<CellController> highlightedCells)
         {
             if (highlightedCells.Count != Cells.Count) return;
