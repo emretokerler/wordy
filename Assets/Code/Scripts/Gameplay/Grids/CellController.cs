@@ -2,6 +2,8 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using Wordy.Events;
+using Wordy.Gameplay.Inputs;
+using Wordy.Gameplay.Inputs.Events;
 
 namespace Wordy.Grids
 {
@@ -18,6 +20,13 @@ namespace Wordy.Grids
             cell.CellController = this;
             HighlightInfo = new();
             letterTxt.text = cell.Letter.ToString();
+        }
+
+        public bool IsNeigbourTo(CellController other)
+        {
+            if (this == other) return false;
+            if (Mathf.Abs(Cell.X - other.Cell.X) <= 1 || Mathf.Abs(Cell.Y - other.Cell.Y) <= 1) return true;
+            return false;
         }
 
         IEnumerator PlayHighlightedAnim1()
@@ -53,29 +62,19 @@ namespace Wordy.Grids
             }
         }
 
-        private void HighlightCell()
-        {
-            CellHighlightedEvent.Trigger(this);
-        }
-
-        private void UnhighlightCell()
-        {
-            CellUnhighlightedEvent.Trigger(this);
-        }
-
-        private void OnMouseOver()
+        public void HighlightCell()
         {
             if (!HighlightInfo.IsHighlighted)
             {
-                HighlightCell();
+                CellHighlightedEvent.Trigger(this);
             }
         }
 
-        private void OnMouseExit()
+        public void UnhighlightCell()
         {
             if (HighlightInfo.IsHighlighted)
             {
-                UnhighlightCell();
+                CellUnhighlightedEvent.Trigger(this);
             }
         }
 
