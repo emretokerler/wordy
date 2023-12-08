@@ -51,9 +51,9 @@ MonoBehaviour:
     GridWidth: 0
     GridHeight: 0
     Words: []
+  wordHighlightLinePrefab: {fileID: 970113526163273792, guid: 79972739b8c924c96b335273fa3b2c30,
+    type: 3}
   LevelWords: []
-  IsUserPressedDown: 0
-  HighlightedCells: []
 --- !u!1 &7138084015857252862
 GameObject:
   m_ObjectHideFlags: 0

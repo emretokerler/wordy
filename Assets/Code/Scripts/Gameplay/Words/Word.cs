@@ -58,6 +58,7 @@ namespace Wordy.Words
 
         private void CheckWordCompleted(List<CellController> highlightedCells)
         {
+            if (Cells == null || Cells.Count == 0) return;
             if (highlightedCells.Count != Cells.Count) return;
             foreach (var hc in highlightedCells)
             {
@@ -69,6 +70,7 @@ namespace Wordy.Words
 
         private void Reveal()
         {
+            if (IsRevealed) return;
             HandleWordRevealed(this);
             WordRevealedEvent.Trigger(this);
         }
@@ -80,23 +82,13 @@ namespace Wordy.Words
 
         void RegisterEvents()
         {
-            GameEvents.On<CellHighlightedEvent>(HandleCellHighlighted);
             GameEvents.On<OnPointerUpEvent>(HandlePointerUp);
         }
 
         void UnregisterEvents()
         {
-            GameEvents.Off<CellHighlightedEvent>(HandleCellHighlighted);
         }
-
-        private void HandleCellHighlighted(CellHighlightedEvent e)
-        {
-            if (Cells.Contains(e.Cell.Cell))
-            {
-                // CheckIfAllCellsHighlighted();
-            }
-        }
-
+       
         void HandlePointerUp(OnPointerUpEvent e)
         {
             CheckWordCompleted(e.HighlightedCells);
