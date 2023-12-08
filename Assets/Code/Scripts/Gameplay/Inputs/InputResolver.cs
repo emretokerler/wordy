@@ -47,6 +47,8 @@ namespace Wordy.Gameplay.Inputs
 
         private void OnPointerMoved(Vector2 screenPosition)
         {
+            if(!isClickedDown) return;
+            
             var cell = GetCellUnderPointer(screenPosition, out RaycastHit hit);
 
             if (cell != null && cell != activeCell)
