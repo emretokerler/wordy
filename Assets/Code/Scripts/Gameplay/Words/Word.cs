@@ -51,7 +51,7 @@ namespace Wordy.Words
             foreach (var cell in cells)
             {
                 // tweens
-                Debug.Log($"Cell: {cell.X}x{cell.Y} Anim1");
+                // Debug.Log($"Cell: {cell.X}x{cell.Y} Anim1");
                 yield return new WaitForSeconds(1);
             }
         }
